@@ -15,91 +15,75 @@
         Background="{DynamicResource PrimaryHueMidBrush}"
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-        <dragablz:DragablzItemsControl VerticalAlignment="Center" HorizontalAlignment="Center" MaxWidth="300" Margin="0 64 0 0" x:Name="DragablzItemsControl">
+        <dragablz:DragablzItemsControl VerticalAlignment="Stretch"
+                                       HorizontalAlignment="Stretch"
+                                       Margin="0"
+                                       x:Name="DragablzItemsControl"
+                                       HorizontalContentAlignment="Stretch">
             <dragablz:DragablzItemsControl.PositionMonitor>
                 <dragablz:VerticalPositionMonitor OrderChanged="StackPositionMonitor_OnOrderChanged" />
             </dragablz:DragablzItemsControl.PositionMonitor>
+            
             <dragablz:DragablzItemsControl.ItemsOrganiser>
                 <dragablz:VerticalOrganiser />
             </dragablz:DragablzItemsControl.ItemsOrganiser>
+            
             <dragablz:DragablzItemsControl.ItemContainerStyle>
-                <Style TargetType="dragablz:DragablzItem">
-                    <Setter Property="Padding" Value="0 4 0 4" />
-                    <Setter Property="Margin" Value="32 0 32 0" />
+                <Style TargetType="{x:Type dragablz:DragablzItem}">
+                    <Setter Property="HorizontalAlignment"
+                            Value="Stretch" />
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type dragablz:DragablzItem}">
-                                <ControlTemplate.Resources>
-                                    <SineEase x:Key="Ease" EasingMode="EaseInOut" />
-                                </ControlTemplate.Resources>
-                                <Grid RenderTransformOrigin=".5, .5">
-                                    <materialDesign:Card Content="{TemplateBinding ContentControl.Content}" ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}" 
-                                                         HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}"
-                                                         Margin="{TemplateBinding Control.Padding}"                                
-                                                         x:Name="Card"                                                         
-                                                     />
-                                    <Thumb Style="{DynamicResource InvisibleThumbStyle}" dragablz:DragablzItem.IsCustomThumb="True">
-                                        <Thumb.Template>
-                                            <ControlTemplate>
-                                                <Grid Background="Transparent" />
-                                            </ControlTemplate>
-                                        </Thumb.Template>
-                                    </Thumb>
-                                    <Grid.RenderTransform>
-                                        <ScaleTransform x:Name="ScaleTransform" ScaleX="1" ScaleY="1" />
-                                    </Grid.RenderTransform>
-                                </Grid>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsDragging" Value="True">
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX">
-                                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.12" EasingFunction="{StaticResource Ease}" />
-                                                    </DoubleAnimationUsingKeyFrames>
-                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY">
-                                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1.12" EasingFunction="{StaticResource Ease}" />
-                                                    </DoubleAnimationUsingKeyFrames>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Card" Storyboard.TargetProperty="(materialDesign:ShadowAssist.ShadowDepth)">
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.08" Value="{x:Static materialDesign:ShadowDepth.Depth2}" />
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.12" Value="{x:Static materialDesign:ShadowDepth.Depth3}" />
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.16" Value="{x:Static materialDesign:ShadowDepth.Depth4}" />
-                                                    </ObjectAnimationUsingKeyFrames>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
-                                        <Trigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleX">
-                                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" EasingFunction="{StaticResource Ease}" />
-                                                    </DoubleAnimationUsingKeyFrames>
-                                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="ScaleTransform" Storyboard.TargetProperty="ScaleY">
-                                                        <EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1" EasingFunction="{StaticResource Ease}" />
-                                                    </DoubleAnimationUsingKeyFrames>
-                                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Card" Storyboard.TargetProperty="(materialDesign:ShadowAssist.ShadowDepth)">
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.12" Value="{x:Static materialDesign:ShadowDepth.Depth4}" />
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.16" Value="{x:Static materialDesign:ShadowDepth.Depth3}" />
-                                                        <DiscreteObjectKeyFrame KeyTime="0:0:0.22" Value="{x:Static materialDesign:ShadowDepth.Depth2}" />
-                                                    </ObjectAnimationUsingKeyFrames>
+                                
+                                <Border Background="#FF474747"
+                                        BorderBrush="#FF212121"
+                                        BorderThickness="1"
+                                        CornerRadius="3">
+                                    <StackPanel>
+                                        <DockPanel>
+                                            <Thumb dragablz:DragablzItem.IsCustomThumb="True"
+                                                    Width="20"
+                                                    Height="20"
+                                                    DockPanel.Dock="Right">
+                                                <Thumb.Template>
+                                                    <ControlTemplate>
+                                                        <Grid Background="Red" />
+                                                    </ControlTemplate>
+                                                </Thumb.Template>
+                                            </Thumb>
+                                            <ToggleButton Content="Header"
+                                                            Foreground="White"
+                                                            IsChecked="True" />
+                                        </DockPanel>
+                                        <ContentPresenter x:Name="PART_Content"/>
+                                    </StackPanel>
+                                </Border>
 
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.ExitActions>
-                                    </Trigger>
+                                <ControlTemplate.Triggers>
+
                                 </ControlTemplate.Triggers>
+                                
                             </ControlTemplate>
                         </Setter.Value>
                     </Setter>
                 </Style>
             </dragablz:DragablzItemsControl.ItemContainerStyle>
-            <Grid Width="200" Height="100" Tag="1">
+
+            <Border Width="200" 
+                    Height="100" 
+                    Tag="1"
+                    Background="#FFC9A3A3"
+                    BorderBrush="#FF5F5F5F"
+                    BorderThickness="1">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">1</TextBlock>
-            </Grid>
-            <Grid Width="200" Height="100" Tag="2">
+            </Border>
+            <Grid Width="200" Height="100" Tag="2"
+                  Background="#FF4A805E">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">2</TextBlock>
             </Grid>
-            <Grid Width="200" Height="100" Tag="3">
+            <Grid Width="200" Height="100" Tag="3"
+                  Background="#FF6C382D">
                 <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">3</TextBlock>
             </Grid>
         </dragablz:DragablzItemsControl>
